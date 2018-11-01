@@ -30,6 +30,20 @@ describe('fill', () => {
             __1.fill(image, [51, 153, 255, 127], 0, 0, 20, 20);
             assert.deepEqual(image, expectFillAll);
         });
+        it('does an early return when dw or dh are 0', () => {
+            const emptyData = new Uint8Array(16 * 16 * 4);
+            const swDest = create_image_1.createImage(16, 16);
+            const shDest = create_image_1.createImage(16, 16);
+            __1.fill(swDest, [51, 153, 255, 127], 0, 0, 0, 16);
+            __1.fill(shDest, [51, 153, 255, 127], 0, 0, 16, 0);
+            assert.deepEqual(swDest.data, emptyData);
+            assert.deepEqual(shDest.data, emptyData);
+        });
+        // no test, just lazy benchmarking
+        it('fill big', () => {
+            const image = create_image_1.createImage(2048, 2048);
+            __1.fill(image, [51, 153, 255, 127], 0, 0, 2560, 2560);
+        });
     });
     describe('clear', () => {
         it('clear all', () => {

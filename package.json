@@ -1,6 +1,6 @@
 {
   "name": "@rgba-image/fill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fill an ImageData instance with a single color",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

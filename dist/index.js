@@ -6,14 +6,18 @@ exports.fill = (dest, color, dx = 0, dy = 0, dw = dest.width - dx, dh = dest.hei
     dy = dy | 0;
     dw = dw | 0;
     dh = dh | 0;
+    if (dw <= 0 || dh <= 0)
+        return;
     const [r, g, b, a] = color;
     const destData = new Uint32Array(dest.data.buffer);
     const destSize = dest.width * dest.height;
     const v = common_1.rgbaToUint32(r, g, b, a, common_1.isLittleEndian);
     for (let y = 0; y < dh; y++) {
+        const destY = dy + y;
+        if (destY < 0 || destY >= dest.height)
+            continue;
         for (let x = 0; x < dw; x++) {
             const destX = dx + x;
-            const destY = dy + y;
             const destIndex = destY * dest.width + destX;
             if (destIndex >= destSize)
                 continue;
