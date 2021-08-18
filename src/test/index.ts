@@ -14,6 +14,14 @@ const expectClearRegion = fromPng( clearRegionPng )
 const expectFillAll = fromPng( fillAllPng )
 const expectClearAll = fromPng( clearAllPng )
 
+const allEmpty = ( array: ArrayLike<number> ) => {
+  for( let i = 0; i < array.length; i++ ){
+    if( array[ i ] !== 0 ) return false
+  }
+
+  return true
+}
+
 describe( 'fill', () => {
   describe( 'fill', () => {
     it( 'fill all', () => {
@@ -42,15 +50,14 @@ describe( 'fill', () => {
 
 
     it( 'does an early return when dw or dh are 0', () => {
-      const emptyData = new Uint8Array( 16 * 16 * 4 )
       const swDest = createImage( 16, 16 )
       const shDest = createImage( 16, 16 )
 
       fill( swDest, [ 51, 153, 255, 127 ], 0, 0, 0, 16 )
       fill( shDest, [ 51, 153, 255, 127 ], 0, 0, 16, 0 )
 
-      assert.deepEqual( swDest.data, emptyData )
-      assert.deepEqual( shDest.data, emptyData )
+      assert( allEmpty( swDest.data) )
+      assert( allEmpty( shDest.data) )
     } )
 
     // no test, just lazy benchmarking

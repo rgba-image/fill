@@ -29,10 +29,14 @@ const height = 90
 fill( image, [ 51, 153, 255, 127 ], x, y, width, height )
 ```
 
-Arguments following `image` are optional
+Arguments following `image` are optional, their default values are:
 
-If omitted, `x` is `0`, `y` is `0`, `width` is `image.width - x`, and `height`
-is `image.height - y`
+```js
+x = 0
+y = 0
+width = image.width - x
+height = image.height - y
+```
 
 There is also an alias function for calling fill with transparent pixels,
 `clear`:
@@ -56,10 +60,11 @@ const height = 90
 clear( image, x, y, width, height )
 ```
 
-Arguments following `image` are optional
+Arguments following `image` are optional and have same defaults as above
 
-If omitted, `x` is `0`, `y` is `0`, `width` is `image.width - x`, and `height`
-is `image.height - y`
+The color argument should be an arraylike with four values, any missing values 
+are substituted from the values `[ 0, 0, 0, 255 ]`, so you can pass eg RGB 
+triplets and alpha will be set to 255
 
 ## License
 

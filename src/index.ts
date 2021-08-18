@@ -1,6 +1,13 @@
-import { rgbaToUint32, isLittleEndian, MutateColor, Mutate } from '@rgba-image/common'
+import { 
+  rgbaToUint32, isLittleEndian, MutateColor, Mutate 
+} from '@rgba-image/common'
 
-export const fill: MutateColor = ( dest: ImageData, color: Iterable<number>, dx = 0, dy = 0, dw = dest.width - dx, dh = dest.height - dy ) => {
+export const fill: MutateColor = ( 
+  dest: ImageData, 
+  color: Iterable<number>, 
+  dx = 0, dy = 0, 
+  dw = dest.width - dx, dh = dest.height - dy 
+) => {
   dx = dx | 0
   dy = dy | 0
   dw = dw | 0
@@ -8,7 +15,7 @@ export const fill: MutateColor = ( dest: ImageData, color: Iterable<number>, dx 
 
   if( dw <= 0 || dh <= 0 ) return
 
-  const [ r, g, b, a ] = color
+  const [ r = 0, g = 0, b = 0, a = 255 ] = color
 
   const destData = new Uint32Array( dest.data.buffer )
   const destSize = dest.width * dest.height
@@ -32,7 +39,11 @@ export const fill: MutateColor = ( dest: ImageData, color: Iterable<number>, dx 
 }
 
 export const ClearFactory = ( fill: MutateColor ) => {
-  const clear: Mutate = ( dest: ImageData, dx = 0, dy = 0, dw = dest.width - dx, dh = dest.height - dy ) =>
+  const clear: Mutate = ( 
+    dest: ImageData, 
+    dx = 0, dy = 0, 
+    dw = dest.width - dx, dh = dest.height - dy 
+  ) =>
     fill( dest, [ 0, 0, 0, 0 ], dx, dy, dw, dh )
 
   return clear
